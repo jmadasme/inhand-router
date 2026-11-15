@@ -32,6 +32,34 @@ cat CAMBIOS_Y_REVERSION.md
 
 Este repositorio es documentación, no firmware. No hay binarios ni credenciales; el equipo se dejó en su estado original.
 
+<!-- ficha -->
+## Ficha de evaluación
+
+**Madurez global: 2.7/5**
+
+| Criterio | Nota | Evidencia |
+|---|---:|---|
+| Madurez | 1/5 | Un único informe; no hay código, firmware ni procedimiento automatizado que ejecutar. |
+| Reproducibilidad | 3/5 | Serial y firmware permiten ubicar el equipo, pero las credenciales se omiten y no hay verificación de versión. |
+| Documentación | 3/5 | El archivo es preciso y fechado; carece de capturas y de datasheet o guía para desarrolladores. |
+| Honestidad de límites | 5/5 | Declara el fallo de SSH, el estado final y los datos que no se pudieron verificar. |
+| Valor demostrativo | 3/5 | Ejemplifica la disciplina de reversión en equipos sin documentación del fabricante. |
+| Facilidad de despliegue | 1/5 | No hay nada que desplegar; es un registro de consulta sobre una intervención ya cerrada. |
+
+Registro honesto y acotado de una intervención real sobre hardware sin documentación. Vale como método de reversión y de declaración de límites, no como proyecto reutilizable.
+
+## Lo que no funcionó
+
+### inhand-router — SSH imposible sin dropbear
+
+Se activó sshd_enable=1 por la interfaz web y el valor quedó en nvram, pero el puerto 22 nunca abrió. El log mostraba «failed to execute dropbear! ret: -1, err: 2», porque el firmware no incluye el binario. Se revirtió a 0 para no dejar un servicio fallando en bucle.
+
+### inhand-router — Enlace WAN sin validar
+
+El equipo reportaba un reloj desajustado, alrededor de 2031, y ninguna ruta por defecto, con el módem Siemens PHS8 registrado pero sin sesión PPP activa. No se intentó corregir el dial porque el alcance era el cambio de LAN; la limitación quedó escrita en el informe.
+
+<!-- /ficha -->
+
 ## Documentación
 
 - [`docs/datasheet.md`](docs/datasheet.md) — instalación, operación y límites.
@@ -39,7 +67,7 @@ Este repositorio es documentación, no firmware. No hay binarios ni credenciales
 - [`docs/REFERENCES.md`](docs/REFERENCES.md) — estándares, librerías y fuentes.
 - [`docs/index.html`](docs/index.html) — página del proyecto (GitHub Pages).
 
-## Alcance y honestidad
+## El proyecto en detalle
 
 
 ## Qué es este repositorio
